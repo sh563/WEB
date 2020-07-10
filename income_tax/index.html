@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Income Tax Calculator</title>
+   	<link rel="stylesheet" href="styles.css">
+     <script>
+        var get_id = function(id)
+        {
+            return document.getElementById(id);
+        }
+
+        function calculate_Tax()
+        {
+     
+
+
+            var tax = parseFloat(get_id("tax").value);
+            var sub_total = parseFloat(get_id("subtotal").value);
+            var sale_Tax = 0;
+            var total = 0;
+
+
+            if (isNaN(sub_total) || isNaN(tax))
+            {
+                alert("Numeric Numbers of both must be of same value");
+            }
+            else
+            {
+                if (sub_total < 0 || sub_total >10000)
+                {
+                    alert("Subtotal Must Be Less Than 10000 or Greater Than 0");
+                }
+                else if (tax > 12 || tax < 0)
+                {
+                    alert("Tax Rate Must Be Less Than 12 or Greater Than 0");
+                }
+                else
+                {
+                    var sale_Tax = sub_total * tax * 0.01;
+
+                    get_id("saleTax").value = sale_Tax.toFixed(1);
+
+                    var total = sub_total + sale_Tax;
+                    get_id("total").value = total.toFixed(1);
+                }
+
+            }
+        }
+        function clear()
+        {
+            get_id("saleTax").value = "";
+            get_id("total").value = "";
+            get_id("tax").value = "";
+            get_id("subtotal").value = "";
+        }
+
+
+        window.onload = function()
+        {
+          
+
+            get_id("calculate").onclick = calculate_Tax;
+
+            get_id("subtotal").focus();
+            get_id("tax").focus();
+            get_id("saleTax").focus();
+            get_id("total").focus();
+            get_id("Clear").onclick = clear;
+
+        }
+    </script>
+</head>
+
+<body>
+<main>
+    <h1>Income Tax Calculator</h1>
+
+   
+    <lable for = "sub_total">Subtotal: </lable>
+    <input type="Text" id="subtotal"> <br>
+    <label> &nbsp; </label>
+    <br>
+
+    <lable for = "tax">		Tax Rate: </lable>
+    <input type="Text" id="tax"> <br>
+    <label> &nbsp; </label>
+    <br>
+
+    <lable for = "sales_Tax">Sales Tax: </lable>
+    <input type="Text" id="saleTax" disabled> <br>
+    <label> &nbsp; </label>
+    <br>
+
+    <lable for = "total"> 		Total: </lable>
+    <input type="Text" id="total" disabled> <br>
+    <label> &nbsp; </label>
+    <br>
+
+
+    <input type="button" id="calculate" value="Calculate">
+    <input type="button" id="Clear" value="Clear">
+
+</main>
+</body>
+</html>
