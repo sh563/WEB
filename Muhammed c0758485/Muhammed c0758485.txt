@@ -1,0 +1,219 @@
+class functionsdealer():
+    def saleyear(self, year,listcar):
+        total = 0
+        for i in listcar:
+            if str(i.get_sold_date()) == year:
+                total = total + int(i.get_sold_price())
+        return total
+
+    def benefityear(self, year, listcar):
+        total = 0
+        for i in listcar:
+            if str(i.get_sold_date()) == year:
+                benefit = int(i.get_sold_price()) - int(i.get_purchase_price())
+                total = total + benefit
+        return total
+
+    def soldmake(self, make, listcar):
+        total = 0
+        for i in listcar:
+            if str(i.get_make()) == make:
+                total = total + 1
+        return total
+
+    def purchase(self, make, listcar):
+        total = 0
+        for i in listcar:
+            if str(i.get_make()) == make:
+                total = total + 1
+        return total
+
+    def displaysale(self, total):
+        print("total of sale:" + str(total))
+
+    def displaybenefitsale(self, total):
+        print("total of benefitsale:" + str(total))
+
+    def displaysoldmakesale(self, total):
+        print("total of soldmakesale:" + str(total))
+
+    def displaysoldpurchase(self, total):
+        print("total of purchase:" + str(total))
+============================================================================================
+
+class collectionCar:
+    def __init__(self):
+        self.collectionCar = []
+    def get_list_information(self, car):
+        for i in self.collectionCar:
+            if i.get_model() == car.get_model():
+                model = i.get_model()
+                make = i.get_make()
+                purchase_price = i.get_purchase_price()
+                sold_price = i.get_sold_price()
+                purchase_date = i.get_purchase_date()
+                sold_date = i.get_sold_date()
+        return model, make, purchase_price, sold_price, purchase_date, sold_date
+
+    def get_list_information_year(self, year):
+        for i in self.collectionCar:
+            if i.get_sold_date() == year:
+                model = i.get_model()
+                make = i.get_make()
+                purchase_price = i.get_purchase_price()
+                sold_price = i.get_sold_price()
+                purchase_date = i.get_purchase_date()
+                sold_date = i.get_sold_date()
+                print(model, make, purchase_price, sold_price, purchase_date, sold_date)
+
+
+    def get_list(self):
+        return self.collectionCar
+
+    def addCar(self, car):
+        self.collectionCar.append(car)
+
+    def removeCar(self, car):
+        self.collectionCar.remove(car)
+
+    def modify(self, cars, model, make, purchase, sold, puchase_date, sold_date):
+        for i in self.collectionCar:
+            if i.get_model() == cars.get_model():
+                i.set_model(model)
+                i.set_make(make)
+                i.set_purchase_price(purchase)
+                i.set_sold_price(sold)
+                i.set_purchase_date(puchase_date)
+                i.set_sold_date(sold_date)
+========================================================================================
+from Set_car import car
+from Car_collection import collectionCar
+from Car_calculation import functionsdealer
+
+if __name__ == "__main__":
+    car1 = car('MV45', 'Lamboghini', '18840', '20000', '2019', '2020')
+    car2 = car('MX545', 'Mazda', '13400', '25000', '2014', '2014')
+    car3 = car('ES350', 'Lexus', '35700', '56000', '2018', '2020')
+    car4 = car('ES352', 'Lexus', '21700', '25000', '2019', '2019')
+    car5 = car('ES353', 'Lexus', '10700', '98000', '2017', '2019')
+    car6 = car('MZ2018', 'Honda', '10700', '98000', '2015', '2020')
+    car7 = car('MX620', 'Mazda', '13400', '28000', '2014', '2014')
+    car8 = car('MX615', 'Honda', '13400', '25000', '2014', '2014')
+    car9 = car('MX623', 'Feraty', '13400', '26000', '2014', '2014')
+    coll = collectionCar()
+    m = functionsdealer()
+
+    # Add cars into the car list
+    coll.addCar(car1)
+    coll.addCar(car2)
+    coll.addCar(car3)
+    coll.addCar(car4)
+    coll.addCar(car5)
+    coll.addCar(car6)
+    coll.addCar(car7)
+
+    # Show all data relating to cars on the screen
+
+    print("Display all of the objects that the user created in the list on the screen: ")
+    count = 0
+    for i in coll.get_list():
+        model, make, purchase_price, sold_price, purchase_date, sold_date = coll.get_list_information(i)
+        count += 1
+        print("car " + str(count) + ": " , model, make, purchase_price, sold_price, purchase_date, sold_date)
+
+    # Display on the screen the car was sold in a certain year
+
+    print("----------------------------------------------------------------------")
+    print("Search for certain car in a specific year: ")
+    coll.get_list_information_year('2019')
+
+    print("----------------------------------------------------------------------")
+    print("Total car sales of a year: ")
+
+    # Total Sale for a certain year
+    total = m.saleyear('2019', coll.get_list())
+    print("The total sale of this year: " + "$" + str(total))
+
+    # Total net benefit for a certain year
+    total1 = m.benefityear('2019', coll.get_list())
+    print("The total net benefit of this year: " + "$" + str(total1))
+
+    # Total number of cars sold for a specific make
+    total2 = m.soldmake('Honda', coll.get_list())
+    print("The number of this car: " +  str(total2))
+
+    # Total number of cars purchased for a specific make
+    total3 = m.purchase('Mazda', coll.get_list())
+    print("The sale number of this kind of car: " + str(total3))
+================================================================================================
+
+class car:
+    def __init__(self, model, make, purchase_price, sold_price, purchase_date, sold_date):
+        self.model = model
+        self.make = make
+        self.purchase_price = purchase_price
+        self.sold_price = sold_price
+        self.purchase_date = purchase_date
+        self.sold_date = sold_date
+
+    def get_model(self):
+        return self.model
+
+    def set_model(self, model):
+        if model is None:
+            return self.model
+        else:
+            self.model = model
+
+    def get_make(self):
+        return self.make
+
+    def set_make(self, make):
+        if make is None:
+            return self.make
+        else:
+            self.make = make
+
+    def get_purchase_price(self):
+        return self.purchase_price
+
+    def set_purchase_price(self, purchase_price):
+        if purchase_price is None:
+            return self.purchase_price
+        else:
+            self.purchase_price = purchase_price
+
+    def get_sold_price(self):
+        return self.sold_price
+
+    def set_sold_price(self, sold_price):
+        if sold_price is None:
+            return self.sold_price
+        else:
+            self.sold_price = sold_price
+
+    def get_purchase_date(self):
+        return self.purchase_date
+
+    def set_purchase_date(self, purchase_date):
+        if purchase_date is None:
+            return self.purchase_date
+        else:
+            self.purchase_date = purchase_date
+
+
+    def get_sold_date(self):
+        return self.sold_date
+
+
+    def set_sold_date(self, sold_date):
+        if sold_date is None:
+           return self.sold_date
+        else:
+           self.sold_date = sold_date
+
+
+
+
+
+
